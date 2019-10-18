@@ -1,12 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ConnectedRouter } from 'connected-react-router'
+import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
+import App from 'features/app/container'
+import store, { history } from 'store'
+import theme from 'theme'
+import dateformat from 'dateformat'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import 'react-datepicker/dist/react-datepicker.css'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+dateformat.i18n = {
+  dayNames: [
+    'Søn', 'Man', 'Tirs', 'Ons', 'Tors', 'Fre', 'Lør',
+    'Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'
+  ],
+  monthNames: [
+    'jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec',
+    'januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december'
+  ],
+  timeNames: [
+    'a', 'p', 'am', 'pm', 'A', 'P', 'AM', 'PM'
+  ]
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </ConnectedRouter>
+  </Provider>
+  // eslint-disable-next-line no-undef
+  , document.getElementById('root'))
